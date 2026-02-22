@@ -56,19 +56,19 @@ def get_max_y_of_element(element) -> float:
                     pass
 
         if y_val is not None:
-            h = 0.0
+            h_num = 0.0
             try:
-                h = float(el.get('height', 0))
+                h_num = float(el.get('height', 0))
             except ValueError:
                 pass
             # For text elements: use font-size as a simple height estimate
             font_size = el.get('font-size', '')
             if font_size:
                 try:
-                    h = max(h, float(font_size))
+                    h_num = max(h_num, float(font_size))
                 except ValueError:
                     pass
-            max_y = max(max_y, y_val + h)
+            max_y = max(max_y, y_val + h_num)
 
         for child in el:
             scan(child)
@@ -142,6 +142,7 @@ def remove_footer_and_adjust_height(
     if old_viewbox:
         parts = old_viewbox.split()
         if len(parts) == 4:
+            # Update the height value in the viewBox
             parts[3] = f"{new_height:.2f}"
             root.set('viewBox', " ".join(parts))
 

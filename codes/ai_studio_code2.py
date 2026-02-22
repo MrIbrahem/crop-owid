@@ -26,14 +26,14 @@ def get_max_y_of_element(element) -> float:
         if y_val:
             try:
                 # Extract only numbers in case there are strings like "px" attached
-                y_num = float(re.search(r'[\d.-]+', y_val).group())
+                y_val = float(re.search(r'[\d.-]+', y_val).group())
 
                 # If the element has a height (like rect), add it to Y
                 height_val = element.get('height')
                 h_num = float(re.search(r'[\d.]+', height_val).group()) if height_val else 0.0
 
                 # Update the maximum Y-axis value
-                max_y = max(max_y, y_num + h_num)
+                max_y = max(max_y, y_val + h_num)
             except (ValueError, TypeError, AttributeError):
                 continue
     return max_y
@@ -100,7 +100,8 @@ def remove_footer_and_adjust_height(
     if old_viewbox:
         parts = old_viewbox.split()
         if len(parts) == 4:
-            parts[3] = str(new_height)  # Update the height value in the viewBox
+            # Update the height value in the viewBox
+            parts[3] = str(new_height)
             root.set('viewBox', " ".join(parts))
 
     print(f"🔄 height: {old_height} → {new_height:.2f}")
