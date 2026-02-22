@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="610.00"
+<svg xmlns="http://www.w3.org/2000/svg" height="558.40"
   style="font-family: Lato, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Liberation Sans&quot;, sans-serif; font-feature-settings: &quot;liga&quot;, &quot;kern&quot;, &quot;calt&quot;, &quot;lnum&quot;; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; font-size: 18px; background-color: rgb(255, 255, 255);"
-  version="1.1" viewBox="0 0 850 610.00" width="850">
+  version="1.1" viewBox="0 0 850 558.40" width="850">
   <defs>
 
   </defs>
@@ -906,18 +906,6 @@
         <text dy=".71em" fill="#111" font-size="13.5" x="505.92" y="521.9">100</text>
         <text dy=".71em" fill="#111" font-size="13.5" x="564.42" y="521.9">125</text>
       </g>
-    </g>
-  </g>
-  <line id="separator-line" stroke="#e7e7e7" x1="16" x2="834" y1="600" y2="600" />
-  <g id="details" transform="translate(15, 616)">
-    <g class="markdown-text-wrap">
-      <text style="font-size: 12.375px; fill: rgb(133, 133, 133); line-height: 1.2;" x="0.0"
-        y="12.0">
-        <tspan x="0" y="12.0">1. Smoking Tobacco smoking is the practice of burning tobacco and
-          ingesting the smoke that is produced. Smoking is a risk factor for many</tspan>
-        <tspan x="0" y="26.9">diseases including heart attacks, strokes and cancer. It is the
-          leading risk factor for death in men, globally.</tspan>
-      </text>
     </g>
   </g>
 </svg>

@@ -18,7 +18,7 @@ for sub_dir in dir_path.iterdir():
         for svg_file in svg_files:
             # ---
             gemini_output_path = sub_dir / "cropped_gemini.svg"
-            ai_studio_1(
+            ai_studio_2(
                 input_path=svg_file,
                 output_path=gemini_output_path,
                 footer_id='footer',
@@ -26,7 +26,7 @@ for sub_dir in dir_path.iterdir():
             )
             # ---
             claude_output_path = sub_dir / "cropped_claude.svg"
-            claude_1(
+            claude_2(
                 input_path=svg_file,
                 output_path=claude_output_path,
                 footer_id='footer',
