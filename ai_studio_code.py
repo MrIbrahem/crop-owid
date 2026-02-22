@@ -1,29 +1,35 @@
 import xml.etree.ElementTree as ET
 import re
 import math
+from pathlib import Path
 
 
-def remove_footer_and_resize(input_file, output_file):
+def remove_footer_and_resize(
+    input_path: str,
+    output_path: str,
+    footer_id: str = 'footer',
+    padding: float = 10.0
+):
     # 1. Register the SVG namespace to avoid modifying/corrupting the tags
     namespace = "http://www.w3.org/2000/svg"
     ET.register_namespace('', namespace)
     # ns = {'svg': namespace}
 
     # Parse the SVG file
-    tree = ET.parse(input_file)
+    tree = ET.parse(input_path)
     root = tree.getroot()
 
     # 2. Find and remove the footer element
     footer_removed = False
     for parent in root.iter():
         for child in list(parent):
-            if child.get('id') == 'footer':
+            if child.get('id') == footer_id:
                 parent.remove(child)
                 footer_removed = True
                 break
 
     if not footer_removed:
-        print("No <g id='footer'> found in the file.")
+        print(f"No <g id='{footer_id}'> found in the file.")
         return
 
     # 3. Calculate the new height (based on the lowest remaining element in the drawing)
@@ -48,7 +54,6 @@ def remove_footer_and_resize(input_file, output_file):
                     continue
 
     # Add a bottom margin (padding) to keep it visually appealing (e.g., 15 pixels)
-    padding = 15
     new_height = math.ceil(max_y + padding)
 
     # 4. Update the viewBox and height attributes in the root <svg> tag
@@ -62,11 +67,18 @@ def remove_footer_and_resize(input_file, output_file):
     root.set('height', str(new_height))
 
     # Save the new file
-    tree.write(output_file, encoding='utf-8', xml_declaration=True)
+    tree.write(output_path, encoding='utf-8', xml_declaration=True)
     print("Footer removed successfully!")
     print(f"The new height is: {new_height}px")
 
 
-# Run the code
-# Put the paths for the original and output files here
-remove_footer_and_resize('original_chart.svg', 'modified_chart.svg')
+if __name__ == '__main__':
+    dir_path = Path(__file__).parent / "examples/2"
+    input_path = dir_path / '2022.svg'
+    output_path = dir_path / '2022_cropped_gemini.svg'
+    remove_footer_and_resize(
+        input_path=input_path,
+        output_path=output_path,
+        footer_id='footer',
+        padding=10.0,
+    )

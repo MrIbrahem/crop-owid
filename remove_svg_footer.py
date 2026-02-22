@@ -1,3 +1,4 @@
+from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
 
@@ -139,11 +140,13 @@ def remove_footer_and_adjust_height(
     print(f"💾 Saved to: {output_path}")
 
 
-# ─── Usage ───────────────────────────────────────────────────
 if __name__ == '__main__':
+    dir_path = Path(__file__).parent / "examples/2"
+    input_path = dir_path / '2022.svg'
+    output_path = dir_path / '2022_cropped_gemini.svg'
     remove_footer_and_adjust_height(
-        input_path='/mnt/user-data/uploads/2022.svg',
-        output_path='/mnt/user-data/outputs/2022_no_footer.svg',
+        input_path=input_path,
+        output_path=output_path,
         footer_id='footer',
-        padding=10.0,   # extra space below the content (in pixels)
+        padding=10.0,
     )
