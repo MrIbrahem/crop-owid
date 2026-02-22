@@ -90,18 +90,19 @@ def remove_footer_and_adjust_height(
     # New height = max y of content + padding
     # Alternatively, use the footer's top position directly: new_height = footer_min_y
     # Add a bottom margin (padding) to keep it visually appealing
-    new_height = math.ceil(content_max_y + padding)
+    # new_height = math.ceil(content_max_y + padding)
+    new_height = content_max_y + padding
     print(f"📏 New height: {new_height:.2f} (padding={padding})")
 
     # 4. Update the viewBox and height attributes in the root <svg> tag
     old_height = root.get('height', '?')
-    root.set('height', str(new_height))
+    root.set('height', f"{new_height:.2f}")
     old_viewbox = root.get('viewBox', '')
     if old_viewbox:
         parts = old_viewbox.split()
         if len(parts) == 4:
             # Update the height value in the viewBox
-            parts[3] = str(new_height)
+            parts[3] = f"{new_height:.2f}"
             root.set('viewBox', " ".join(parts))
 
     print(f"🔄 height: {old_height} → {new_height:.2f}")

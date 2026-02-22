@@ -132,6 +132,7 @@ def remove_footer_and_adjust_height(
     # New height = max y of content + padding
     # Alternatively, use the footer's top position directly: new_height = footer_min_y
     # Add a bottom margin (padding) to keep it visually appealing
+    # new_height = math.ceil(content_max_y + padding)
     new_height = content_max_y + padding
     print(f"📏 New height: {new_height:.2f} (padding={padding})")
 
