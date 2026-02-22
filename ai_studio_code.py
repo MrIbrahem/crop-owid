@@ -73,9 +73,9 @@ def remove_footer_and_resize(
 
 
 if __name__ == '__main__':
-    dir_path = Path(__file__).parent / "examples/2"
-    input_path = dir_path / '2022.svg'
-    output_path = dir_path / '2022_cropped_gemini.svg'
+    dir_path = Path(__file__).parent / "examples/1"
+    input_path = dir_path / 'Daily_meat_consumption_per_person,_World,_2022.svg'
+    output_path = dir_path / 'cropped_gemini.svg'
     remove_footer_and_resize(
         input_path=input_path,
         output_path=output_path,
