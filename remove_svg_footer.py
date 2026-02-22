@@ -141,8 +141,8 @@ def remove_footer_and_adjust_height(
 
 
 if __name__ == '__main__':
-    dir_path = Path(__file__).parent / "examples/1"
-    input_path = dir_path / 'Daily_meat_consumption_per_person,_World,_2022.svg'
+    dir_path = Path(__file__).parent / "examples/3"
+    input_path = dir_path / 'Death_rate_from_smoking,_World,_2021.svg'
     output_path = dir_path / 'cropped_claude.svg'
     remove_footer_and_adjust_height(
         input_path=input_path,
