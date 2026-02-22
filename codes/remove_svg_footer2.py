@@ -150,6 +150,7 @@ def remove_footer_and_adjust_height(
 
     # Save the new file
     tree.write(output_path, encoding='unicode', xml_declaration=False)
+    # tree.write(output_path, encoding='utf-8', xml_declaration=True)
     print("Footer and all subsequent elements removed successfully!")
     print(f"The new height is: {new_height}px")
     print(f"💾 Saved to: {output_path}")
