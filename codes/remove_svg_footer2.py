@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
+import math
 
 
 def get_min_y_of_element(element) -> float:
@@ -82,18 +83,16 @@ def remove_footer_and_adjust_height(
     footer_id: str = 'footer',
     padding: float = 10.0
 ):
-    # Register namespaces to prevent them from being rewritten incorrectly
-    ET.register_namespace('', 'http://www.w3.org/2000/svg')
+    # 1. Register the SVG namespace to avoid modifying/corrupting the tags
+    namespace = "http://www.w3.org/2000/svg"
+    ET.register_namespace('', namespace)
     ET.register_namespace('xlink', 'http://www.w3.org/1999/xlink')
 
+    # Parse the SVG file
     tree = ET.parse(input_path)
     root = tree.getroot()
 
-    # ns = {'svg': 'http://www.w3.org/2000/svg'}
-    # Support SVG files with or without a namespace prefix
-    # tag_prefix = root.tag.split('}')[0] + '}' if '}' in root.tag else ''
-
-    # Find the footer element and remove it along with all siblings that follow it
+    # 2. Find and remove the footer element
     footer = None
     footer_min_y = None
     children = list(root)
@@ -119,8 +118,10 @@ def remove_footer_and_adjust_height(
 
     print(f"✅ Total removed: {len(elements_to_remove)} element(s) (footer min y: {footer_min_y})")
 
-    # Calculate the highest y in the remaining content
+    # 3. Calculate the new height based on the REMAINING elements
     content_max_y = 0.0
+
+    # Search all remaining elements for attributes that define their vertical position
     for child in root:
         y = get_max_y_of_element(child)
         content_max_y = max(content_max_y, y)
@@ -129,23 +130,26 @@ def remove_footer_and_adjust_height(
 
     # New height = max y of content + padding
     # Alternatively, use the footer's top position directly: new_height = footer_min_y
+    # Add a bottom margin (padding) to keep it visually appealing
     new_height = content_max_y + padding
     print(f"📏 New height: {new_height:.2f} (padding={padding})")
 
-    # Update width, height and viewBox on the <svg> tag
+    # 4. Update the viewBox and height attributes in the root <svg> tag
     old_height = root.get('height', '?')
     root.set('height', f"{new_height:.2f}")
-
     old_viewbox = root.get('viewBox', '')
     if old_viewbox:
         parts = old_viewbox.split()
         if len(parts) == 4:
             parts[3] = f"{new_height:.2f}"
-            root.set('viewBox', ' '.join(parts))
+            root.set('viewBox', " ".join(parts))
 
     print(f"🔄 height: {old_height} → {new_height:.2f}")
 
+    # Save the new file
     tree.write(output_path, encoding='unicode', xml_declaration=False)
+    print("Footer and all subsequent elements removed successfully!")
+    print(f"The new height is: {new_height}px")
     print(f"💾 Saved to: {output_path}")
 
 

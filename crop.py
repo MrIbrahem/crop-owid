@@ -7,7 +7,7 @@
 """
 from pathlib import Path
 
-from codes import ai_studio_1, claude_1, claude_2, ai_studio_2
+from codes import claude_2, ai_studio_2
 
 
 dir_path = Path(__file__).parent / "examples"
