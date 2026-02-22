@@ -136,9 +136,9 @@ def remove_footer_and_adjust_height(
     old_height = root.get('height', '?')
     root.set('height', f"{new_height:.2f}")
 
-    view_box = root.get('viewBox', '')
-    if view_box:
-        parts = view_box.split()
+    old_viewbox = root.get('viewBox', '')
+    if old_viewbox:
+        parts = old_viewbox.split()
         if len(parts) == 4:
             parts[3] = f"{new_height:.2f}"
             root.set('viewBox', ' '.join(parts))

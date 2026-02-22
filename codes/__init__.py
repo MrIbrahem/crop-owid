@@ -1,5 +1,5 @@
 
-from .ai_studio_code2 import remove_footer_and_resize as ai_studio_2
+from .ai_studio_code2 import remove_footer_and_adjust_height as ai_studio_2
 from .remove_svg_footer2 import remove_footer_and_adjust_height as claude_2
 
 __all__ = [

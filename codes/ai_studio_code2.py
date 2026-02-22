@@ -4,7 +4,7 @@ import math
 from pathlib import Path
 
 
-def remove_footer_and_resize(
+def remove_footer_and_adjust_height(
     input_path: str,
     output_path: str,
     footer_id: str = 'footer',
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     dir_path = Path(__file__).parent / "examples/3"
     input_path = dir_path / 'Death_rate_from_smoking,_World,_2021.svg'
     output_path = dir_path / 'cropped_gemini.svg'
-    remove_footer_and_resize(
+    remove_footer_and_adjust_height(
         input_path=input_path,
         output_path=output_path,
         footer_id='footer',
