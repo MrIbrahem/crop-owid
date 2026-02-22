@@ -21,6 +21,21 @@ def get_max_y_of_element(element) -> float:
     """
     max_y = 0.0
 
+    y_attrs = [element.get('y'), element.get('y1'), element.get('y2'), element.get('cy')]
+    for y_val in y_attrs:
+        if y_val:
+            try:
+                # Extract only numbers in case there are strings like "px" attached
+                y_num = float(re.search(r'[\d.-]+', y_val).group())
+
+                # If the element has a height (like rect), add it to Y
+                height_val = element.get('height')
+                h_num = float(re.search(r'[\d.]+', height_val).group()) if height_val else 0.0
+
+                # Update the maximum Y-axis value
+                max_y = max(max_y, y_num + h_num)
+            except (ValueError, TypeError, AttributeError):
+                continue
     return max_y
 
 
@@ -47,7 +62,7 @@ def remove_footer_and_adjust_height(
 
         children = list(parent)
         for index, child in enumerate(children):
-            if child.get('id') == footer_id:
+            if child.get('id', '') == footer_id:
                 # Found the footer!
                 # Now remove the footer and ALL sibling elements that come after it
                 elements_to_remove = children[index:]
@@ -65,22 +80,10 @@ def remove_footer_and_adjust_height(
     content_max_y = 0.0
 
     # Search all remaining elements for attributes that define their vertical position
-    for el in root.iter():
-        y_attrs = [el.get('y'), el.get('y1'), el.get('y2'), el.get('cy')]
-        for y_val in y_attrs:
-            if y_val:
-                try:
-                    # Extract only numbers in case there are strings like "px" attached
-                    y_num = float(re.search(r'[\d.-]+', y_val).group())
-
-                    # If the element has a height (like rect), add it to Y
-                    height_val = el.get('height')
-                    h_num = float(re.search(r'[\d.]+', height_val).group()) if height_val else 0.0
-
-                    # Update the maximum Y-axis value
-                    content_max_y = max(content_max_y, y_num + h_num)
-                except (ValueError, TypeError, AttributeError):
-                    continue
+    for child in root.iter():
+        y = get_max_y_of_element(child)
+        # Update the maximum Y-axis value
+        content_max_y = max(content_max_y, y)
 
     print(f"📐 Max y in remaining content: {content_max_y:.2f}")
 

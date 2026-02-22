@@ -98,11 +98,11 @@ def remove_footer_and_adjust_height(
     children = list(root)
     footer_index = None
 
-    for i, child in enumerate(children):
+    for index, child in enumerate(children):
         if child.get('id', '') == footer_id:
             footer = child
             footer_min_y = get_min_y_of_element(child)
-            footer_index = i
+            footer_index = index
             break
 
     if footer is None:
@@ -124,6 +124,7 @@ def remove_footer_and_adjust_height(
     # Search all remaining elements for attributes that define their vertical position
     for child in root:
         y = get_max_y_of_element(child)
+        # Update the maximum Y-axis value
         content_max_y = max(content_max_y, y)
 
     print(f"📐 Max y in remaining content: {content_max_y:.2f}")
