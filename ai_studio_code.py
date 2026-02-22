@@ -53,7 +53,7 @@ def remove_footer_and_resize(
                 except (ValueError, TypeError, AttributeError):
                     continue
 
-    # Add a bottom margin (padding) to keep it visually appealing (e.g., 15 pixels)
+    # Add a bottom margin (padding) to keep it visually appealing
     new_height = math.ceil(max_y + padding)
 
     # 4. Update the viewBox and height attributes in the root <svg> tag
