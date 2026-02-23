@@ -1,17 +1,6 @@
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
-import math
-
-
-def get_min_y_of_element(element) -> float:
-    """
-    Extract the minimum y value from an SVG element and all its descendants.
-    Used to determine the exact starting position of the footer.
-    """
-    min_y = float('inf')
-
-    return min_y if min_y != float('inf') else None
 
 
 def get_max_y_of_element(element) -> float:
@@ -113,7 +102,7 @@ def remove_footer_and_adjust_height(
     print("Footer and all subsequent elements removed successfully!")
     print(f"The new height is: {new_height}px")
     print(f"💾 Saved to: {output_path}")
-
+    return True
 
 if __name__ == '__main__':
     dir_path = Path(__file__).parent / "examples/3"
