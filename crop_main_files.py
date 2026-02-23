@@ -9,6 +9,8 @@ from codes import claude_2, ai_studio_2
 main_files_path = Path(__file__).parent / "main_files"
 main_files_cropped_path = Path(__file__).parent / "main_files_cropped"
 
+main_files_cropped_path.mkdir(exist_ok=True)
+
 svg_files = [x for x in list(main_files_path.glob('*.svg'))]
 
 for svg_file in svg_files:
